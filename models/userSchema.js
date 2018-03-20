@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const managerSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	email: {
 		type: String,
@@ -8,7 +8,14 @@ const managerSchema = mongoose.Schema({
 		unique: true,
 		match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 	},
-	password:{ type: String, required:true}
+	password:{ type: String, required:true},
+	typeOfUser:{
+		type:String,
+		enum:['Manager','Chef','Customer'],
+		required: true
+	},
+	blackListed:{type: Boolean, default: false,required:false}
+
 	}
 );
-module.exports = mongoose.model('Manager',managerSchema);
+module.exports = mongoose.model('User',userSchema);
